@@ -20,11 +20,6 @@ public class Player_movement : MonoBehaviour
     Vector2 mouseTarget;
     bool hasMouseTarget = false;
 
-    void Awake()
-    {
-        //rb = GetComponent<Rigidbody2D>();
-    }
-
     void Update()
     {
         // Input System only

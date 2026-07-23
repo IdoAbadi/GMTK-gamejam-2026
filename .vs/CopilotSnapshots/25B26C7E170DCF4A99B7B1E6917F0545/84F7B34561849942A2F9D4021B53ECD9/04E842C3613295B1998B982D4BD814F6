@@ -1,0 +1,141 @@
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Microwave_timer : MonoBehaviour
+{
+    [Header("Timer Settings")]
+    [Tooltip("Total countdown time in seconds")]
+    public float durationSeconds = 60f;
+    [Tooltip("Periodic SFX interval in seconds. Set to 0 to disable periodic SFX.")]
+    public float periodicIntervalSeconds = 15f;
+    [Tooltip("Start automatically on Awake")]
+    public bool autoStart = false;
+    [Tooltip("Radius around this object where the player can toggle the timer using the E key")]
+    public float activationRadius = 2f;
+    [Tooltip("assign the player transform")]
+    public Transform player;
+
+    [Header("Audio")]
+    public AudioSource audioSource; // assign in editor
+    public AudioClip endSfx;
+    public AudioClip periodicSfx;
+
+    float elapsed;
+    bool running;
+    float nextPeriodicTrigger;
+    bool playerInRange;
+
+    void Awake()
+    {
+        // ensure sensible defaults
+        if (durationSeconds < 0f) durationSeconds = 0f;
+        if (periodicIntervalSeconds < 0f) periodicIntervalSeconds = 0f;
+
+        elapsed = 0f;
+        running = false;
+        nextPeriodicTrigger = periodicIntervalSeconds;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (autoStart) StartTimer();
+
+        // find player if not assigned
+        if (player == null)
+        {
+            var go = GameObject.FindWithTag("Player");
+            if (go != null) player = go.transform;
+            else
+            {
+                // fallback to common name used in scene
+                go = GameObject.Find("kid");
+                if (go != null) player = go.transform;
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!running) return;
+
+        // advance timer with fixed delta
+        elapsed += Time.fixedDeltaTime;
+
+        // periodic SFX
+        if (periodicIntervalSeconds > 0f && periodicSfx != null && elapsed >= nextPeriodicTrigger)
+        {
+            PlayOneShot(periodicSfx);
+            // schedule next
+            nextPeriodicTrigger += periodicIntervalSeconds;
+        }
+    
+    void Update()
+    {
+        // check player proximity
+        playerInRange = false;
+        if (player != null)
+        {
+            float d = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.position.x, player.position.y));
+            playerInRange = d <= activationRadius;
+        }
+
+        // toggle with E (Input System only)
+        var kb = Keyboard.current;
+        if (kb != null && playerInRange && kb.eKey.wasPressedThisFrame)
+        {
+            if (running) StopTimer(); else StartTimer();
+        }
+    }
+
+        // end of timer
+        if (elapsed >= durationSeconds)
+        {
+            running = false;
+            elapsed = durationSeconds;
+            if (endSfx != null) PlayOneShot(endSfx);
+            OnTimerEnd();
+        }
+    }
+
+    void PlayOneShot(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            // fallback: create a temporary audio source
+            var go = new GameObject("_temp_sfx");
+            go.transform.SetParent(transform);
+            var src = go.AddComponent<AudioSource>();
+            src.PlayOneShot(clip);
+            Destroy(go, clip.length + 0.1f);
+        }
+    }
+
+    // API
+    public void StartTimer()
+    {
+        elapsed = 0f;
+        running = true;
+        nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
+    }
+
+    public void StopTimer()
+    {
+        running = false;
+    }
+
+    // removed ResetTimer per request. Timer can be started/stopped via StartTimer/StopTimer and toggled by E when player is close.
+
+    public float TimeRemaining() => Mathf.Max(0f, durationSeconds - elapsed);
+    public float TimeElapsed() => elapsed;
+    public bool IsRunning() => running;
+
+    // hook for additional behavior
+    protected virtual void OnTimerEnd()
+    {
+        // override or subscribe to further behavior in derived scripts
+    }
+}
