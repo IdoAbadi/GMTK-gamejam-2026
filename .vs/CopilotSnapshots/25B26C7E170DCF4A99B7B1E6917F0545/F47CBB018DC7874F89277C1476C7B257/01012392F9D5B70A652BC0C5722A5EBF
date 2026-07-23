@@ -1,0 +1,107 @@
+﻿using UnityEngine;
+
+public class Player_movement : MonoBehaviour
+{
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    public float jumpForce = 8f;
+    public bool allowMouseFollow = true;
+
+    public Rigidbody2D rb; // assign in editor
+    float horizontal;
+    bool facingRight;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.12f;
+    public LayerMask groundLayer;
+
+    Vector2 mouseTarget;
+    bool hasMouseTarget = false;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        // Keyboard input (A/D, Left/Right)
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        // Mouse follow: on left click set a horizontal target
+        if (allowMouseFollow && Input.GetMouseButtonDown(0))
+        {
+            if (Camera.main != null)
+            {
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mouseTarget = new Vector2(worldPos.x, transform.position.y);
+                hasMouseTarget = true;
+            }
+        }
+
+        // If there's a mouse target and no keyboard input, move toward the clicked X
+        if (hasMouseTarget && Mathf.Approximately(horizontal, 0f))
+        {
+            float dx = mouseTarget.x - transform.position.x;
+            if (Mathf.Abs(dx) > 0.1f)
+                horizontal = Mathf.Sign(dx);
+            else
+            {
+                hasMouseTarget = false;
+                horizontal = 0f;
+            }
+        }
+
+        // Jump trigger (space) - only when grounded
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
+        // Optional: flip sprite depending on movement direction
+        if (horizontal > 0 && !facingRight) Flip();
+        else if (horizontal < 0 && facingRight) Flip();
+    }
+
+    void FixedUpdate()
+    {
+        // Apply horizontal movement while preserving vertical (linear) velocity
+        if (rb != null)
+        {
+            Vector2 linearVelocity = rb.velocity; // linear velocity
+            linearVelocity.x = horizontal * moveSpeed;
+            rb.velocity = linearVelocity;
+        }
+    }
+
+    bool IsGrounded()
+    {
+        if (groundCheck != null)
+        {
+            Collider2D hit = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+            return hit != null;
+        }
+
+        // Fallback raycast down if no groundCheck provided
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
+        return hit2.collider != null;
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 s = transform.localScale;
+        s.x *= -1f;
+        transform.localScale = s;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+    }
+}
