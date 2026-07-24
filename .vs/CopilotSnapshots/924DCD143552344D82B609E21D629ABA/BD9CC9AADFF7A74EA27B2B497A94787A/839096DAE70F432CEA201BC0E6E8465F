@@ -1,0 +1,128 @@
+﻿using System.Collections;
+using UnityEngine;
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+using UnityEngine.InputSystem;
+#endif
+
+public class ArmController : MonoBehaviour
+{
+    public enum State
+    {
+        Rotating,
+        Extending,
+        Retracting,
+        Cooldown
+    }
+
+    [Header("References")]
+    [SerializeField] private Grab_hand grabHand; // Should sit on a child GameObject
+
+    [Header("Speeds")]
+    [Tooltip("Speed of the sweeping rotation (higher = faster)")]
+    [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float extendSpeed = 5f;
+    [SerializeField] private float retractSpeed = 8f;
+
+    [Header("Rotation Limits")]
+    [SerializeField] private float maxAngle = 60f; // sweeps from -maxAngle to +maxAngle
+
+    private State state = State.Rotating;
+    private Transform handTransform;
+    private Vector3 initialLocalPosition;
+
+    private void Awake()
+    {
+        if (grabHand == null)
+        {
+            grabHand = GetComponentInChildren<Grab_hand>();
+        }
+
+        if (grabHand == null)
+        {
+            Debug.LogError("ArmController: GrabHand reference not assigned and no GrabHand found in children.");
+            enabled = false;
+            return;
+        }
+
+        handTransform = grabHand.transform;
+        initialLocalPosition = handTransform.localPosition;
+    }
+
+    private void Start()
+    {
+        state = State.Rotating;
+        grabHand.enabled = false;
+        // Try to reset the grabFinished flag if it exists on the component
+        try { grabHand.grabFinished = false; } catch { }
+    }
+
+    private void Update()
+    {
+        switch (state)
+        {
+            case State.Rotating:
+                UpdateRotating();
+                if (IsSpacePressedThisFrame())
+                {
+                    state = State.Extending;
+                    grabHand.enabled = true;
+                    try { grabHand.grabFinished = false; } catch { }
+                }
+                break;
+
+            case State.Extending:
+                UpdateExtending();
+                // Expect GrabHand to set grabFinished = true when it grabbed something
+                try
+                {
+                    if (grabHand.grabFinished)
+                    {
+                        state = State.Retracting;
+                    }
+                }
+                catch { }
+                break;
+
+            case State.Retracting:
+                UpdateRetracting();
+                break;
+
+            case State.Cooldown:
+                // idle until coroutine finishes
+                break;
+        }
+    }
+
+    private void UpdateRotating()
+    {
+        // Smoothly sweep Z between -maxAngle and +maxAngle
+        float angle = Mathf.PingPong(Time.time * rotationSpeed, maxAngle * 2f) - maxAngle;
+        transform.localEulerAngles = new Vector3(0f, 0f, angle);
+    }
+
+    private void UpdateExtending()
+    {
+        // Move hand forward along the arm's local up axis (suitable for 2D setups where arm's up points outward)
+        handTransform.localPosition += Vector3.up * extendSpeed * Time.deltaTime;
+    }
+
+    private void UpdateRetracting()
+    {
+        handTransform.localPosition = Vector3.MoveTowards(handTransform.localPosition, initialLocalPosition, retractSpeed * Time.deltaTime);
+        if (Vector3.Distance(handTransform.localPosition, initialLocalPosition) <= 0.001f)
+        {
+            handTransform.localPosition = initialLocalPosition;
+            state = State.Cooldown;
+            StartCoroutine(CooldownRoutine());
+        }
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        // stop movement for 0.2 seconds
+        yield return new WaitForSeconds(0.2f);
+
+        grabHand.enabled = false;
+        state = State.Rotating;
+    }
+}

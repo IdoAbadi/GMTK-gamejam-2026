@@ -1,0 +1,181 @@
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ArmController : MonoBehaviour
+{
+    public enum State
+    {
+        Rotating,
+        Extending,
+        Retracting,
+        Cooldown
+    }
+
+    [Header("References")]
+    [SerializeField] private Grab_hand grabHand; // Should sit on a child GameObject
+
+    [Header("Speeds")]
+    [Tooltip("Speed of the sweeping rotation (higher = faster)")]
+    [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float extendSpeed = 5f;
+    [SerializeField] private float retractSpeed = 8f;
+
+    [Header("Rotation Limits")]
+    [SerializeField] private float maxAngle = 60f; // sweeps from -maxAngle to +maxAngle
+
+    private State state = State.Rotating;
+    private Transform handTransform;
+    [Header("Movement Target")]
+    [Tooltip("If true, move the parent of this GameObject instead of the grab hand.")]
+    [SerializeField] private bool moveParentInstead = false;
+
+    private Transform movingTransform;
+    private Vector3 initialPosition;
+    private InputAction fireAction;
+
+    private void Awake()
+    {
+        if (grabHand == null)
+        {
+            grabHand = GetComponentInChildren<Grab_hand>();
+        }
+
+        if (grabHand == null)
+        {
+            Debug.LogError("ArmController: GrabHand reference not assigned and no GrabHand found in children.");
+            enabled = false;
+            return;
+        }
+
+        handTransform = grabHand.transform;
+
+        // decide which transform we will move when extending/retracting
+        if (moveParentInstead && transform.parent != null)
+        {
+            movingTransform = transform.parent;
+        }
+        else
+        {
+            movingTransform = handTransform;
+        }
+
+        initialPosition = movingTransform.position;
+    }
+
+    private void Start()
+    {
+        state = State.Rotating;
+        grabHand.enabled = false;
+        // Try to reset the grabFinished flag if it exists on the component
+        try { grabHand.grabFinished = false; } catch { }
+    }
+
+    private void OnEnable()
+    {
+        if (fireAction == null)
+        {
+            fireAction = new InputAction("Fire", InputActionType.Button);
+            fireAction.AddBinding("<Keyboard>/space");
+            fireAction.AddBinding("<Gamepad>/buttonSouth");
+            fireAction.performed += OnFire;
+        }
+        fireAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (fireAction != null)
+            fireAction.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (fireAction != null)
+        {
+            fireAction.performed -= OnFire;
+            fireAction.Dispose();
+            fireAction = null;
+        }
+    }
+
+    private void Update()
+    {
+        switch (state)
+        {
+            case State.Rotating:
+                UpdateRotating();
+                // Input handled via Input System action (OnFire)
+                break;
+
+            case State.Extending:
+                UpdateExtending();
+                // Expect GrabHand to set grabFinished = true when it grabbed something
+                try
+                {
+                    if (grabHand.grabFinished)
+                    {
+                        state = State.Retracting;
+                    }
+                }
+                catch { }
+                break;
+
+            case State.Retracting:
+                UpdateRetracting();
+                break;
+
+            case State.Cooldown:
+                // idle until coroutine finishes
+                break;
+        }
+    }
+
+    private void UpdateRotating()
+    {
+        // Smoothly sweep Z between -maxAngle and +maxAngle
+        float angle = Mathf.PingPong(Time.time * rotationSpeed, maxAngle * 2f) - maxAngle;
+        transform.localEulerAngles = new Vector3(0f, 0f, angle);
+    }
+
+    private void UpdateExtending()
+    {
+        // Move the chosen transform forward along this arm's up direction (world space)
+        movingTransform.position += (Vector3)transform.up * extendSpeed * Time.deltaTime;
+    }
+
+    private void UpdateRetracting()
+    {
+        movingTransform.position = Vector3.MoveTowards(movingTransform.position, initialPosition, retractSpeed * Time.deltaTime);
+        if (Vector3.Distance(movingTransform.position, initialPosition) <= 0.001f)
+        {
+            movingTransform.position = initialPosition;
+            state = State.Cooldown;
+            StartCoroutine(CooldownRoutine());
+        }
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        // stop movement for 0.2 seconds
+        yield return new WaitForSeconds(0.2f);
+        // ensure hand returns to open/idle state
+        try
+        {
+            grabHand.state = Grab_hand.HandState.IdleOpen;
+            grabHand.grabFinished = false;
+        }
+        catch { }
+
+        grabHand.enabled = false;
+        state = State.Rotating;
+    }
+
+    private void OnFire(InputAction.CallbackContext ctx)
+    {
+        if (state != State.Rotating) return;
+        state = State.Extending;
+        grabHand.enabled = true;
+        try { grabHand.grabFinished = false; } catch { }
+    }
+}

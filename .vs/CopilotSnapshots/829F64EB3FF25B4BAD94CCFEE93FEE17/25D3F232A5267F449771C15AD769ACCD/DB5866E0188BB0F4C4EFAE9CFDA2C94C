@@ -1,0 +1,96 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Collider2D))]
+public class Grab_hand : MonoBehaviour
+{
+    public enum HandState
+    {
+        IdleOpen,
+        Grabbing,
+        Closed
+    }
+
+    public HandState state = HandState.IdleOpen;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private string grabTriggerName = "Grab";
+
+    public bool grabFinished = false;
+
+    private List<GameObject> overlappingObjects = new List<GameObject>();
+    private GameObject grabbedObject;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && state == HandState.IdleOpen)
+        {
+            // choose the top-most object (highest sortingOrder) if any
+            grabbedObject = SelectTopMostObject();
+
+            grabFinished = false;
+            state = HandState.Grabbing;
+
+            if (animator != null)
+            {
+                animator.SetTrigger(grabTriggerName);
+            }
+        }
+    }
+
+    private GameObject SelectTopMostObject()
+    {
+        GameObject best = null;
+        int bestOrder = int.MinValue;
+
+        foreach (var go in overlappingObjects)
+        {
+            if (go == null) continue;
+
+            var sr = go.GetComponent<SpriteRenderer>();
+            int order = sr != null ? sr.sortingOrder : int.MinValue;
+
+            if (best == null || order > bestOrder)
+            {
+                best = go;
+                bestOrder = order;
+            }
+        }
+
+        return best;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other == null) return;
+
+        // only consider objects that have a Rigidbody2D (as specified)
+        if (other.attachedRigidbody != null && !overlappingObjects.Contains(other.gameObject))
+        {
+            overlappingObjects.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other == null) return;
+
+        overlappingObjects.Remove(other.gameObject);
+
+        if (grabbedObject == other.gameObject)
+            grabbedObject = null;
+    }
+
+    // Called by an Animation Event at the end of the grab animation
+    public void OnGrabAnimationComplete()
+    {
+        state = HandState.Closed;
+        grabFinished = true;
+    }
+
+    // Expose grabbed object for other scripts if needed
+    public GameObject GrabbedObject => grabbedObject;
+
+    // Read-only view of overlapping objects
+    public IReadOnlyList<GameObject> OverlappingObjects => overlappingObjects.AsReadOnly();
+}

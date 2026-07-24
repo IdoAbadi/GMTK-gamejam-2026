@@ -1,0 +1,169 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Collider2D))]
+public class Grab_hand : MonoBehaviour
+{
+    public enum HandState
+    {
+        IdleOpen,
+        Grabbing,
+        Closed
+    }
+
+    public HandState state = HandState.IdleOpen;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private string grabTriggerName = "Grab";
+    // parent-attach state
+    private Transform grabbedOriginalParent;
+    private bool grabbedParented = false;
+
+    public bool grabFinished = false;
+
+    public List<GameObject> overlappingObjects = new List<GameObject>();
+    private GameObject grabbedObject;
+
+    void Update()
+    {
+        if (IsSpacePressed() && state == HandState.IdleOpen)
+        {
+            // If there are overlapping objects, pick the top-most
+            if (overlappingObjects.Count > 0)
+            {
+                grabbedObject = SelectTopMostObject();
+            }
+
+            // Begin grabbing animation
+            if (animator != null)
+            {
+                animator.speed = 1f;
+                animator.SetTrigger(grabTriggerName);
+            }
+
+            // If we actually grabbed an object, attach it to the hand if appropriate
+            if (grabbedObject != null && (grabbedObject.CompareTag("prize") || grabbedObject.CompareTag("can")))
+            {
+                AttachGrabbedToHand();
+                grabFinished = false;
+            }
+            else
+            {
+                // No object grabbed: instant finish
+                grabFinished = true;
+            }
+
+            state = HandState.Grabbing;
+        }
+    }
+
+    // Use the new Input System: check keyboard space or gamepad south/buttonA
+    private bool IsSpacePressed()
+    {
+
+        var kb = Keyboard.current;
+        if (kb != null)
+        {
+
+            if(kb.spaceKey.wasPressedThisFrame)
+            {
+                Debug.Log("space");
+                return true;
+            }
+        }
+
+        var gp = Gamepad.current;
+        if (gp != null)
+        {
+            if(gp.buttonSouth.wasPressedThisFrame)
+            {
+                Debug.Log("button south");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+    private GameObject SelectTopMostObject()
+    {
+        GameObject best = null;
+        int bestOrder = int.MinValue;
+
+        foreach (var go in overlappingObjects)
+        {
+            if (go == null) continue;
+
+            var sr = go.GetComponent<SpriteRenderer>();
+            int order = sr != null ? sr.sortingOrder : int.MinValue;
+
+            if (best == null || order > bestOrder)
+            {
+                best = go;
+                bestOrder = order;
+            }
+        }
+
+        return best;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // only consider objects that have a Rigidbody2D (as specified)
+        if (other.attachedRigidbody != null && !overlappingObjects.Contains(other.gameObject))
+        {
+            overlappingObjects.Add(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (animator != null)
+        {
+            animator.speed = 3f;
+            animator.SetTrigger(grabTriggerName);
+            grabbedObject = null;
+        }
+
+        grabFinished = true;
+        //if (IsSpacePressed())
+        //{
+        //    state = HandState.Grabbing;
+        //}
+
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other == null) return;
+
+        overlappingObjects.Remove(other.gameObject);
+
+        if (grabbedObject == other.gameObject)
+        {
+            grabbedObject = null;
+        } 
+    }
+
+    // Called by an Animation Event at the end of the grab animation
+    public void OnGrabAnimationComplete()
+    {
+        // restore animator speed in case it was changed
+        if (animator != null)
+        {
+            animator.speed = 1f;
+        }
+        state = HandState.Closed;
+        grabFinished = true;
+    }
+
+    // Expose grabbed object for other scripts if needed
+    public GameObject GrabbedObject => grabbedObject;
+
+    // Read-only view of overlapping objects
+    public IReadOnlyList<GameObject> OverlappingObjects => overlappingObjects.AsReadOnly();
+}
