@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class CatMinigameManager : MonoBehaviour
@@ -56,7 +56,11 @@ public class CatMinigameManager : MonoBehaviour
                 "Food: " + foodCaught + " / " + foodNeededToWin;
         }
 
-        // Miss tracking removed: no misses UI to update
+        if (missesText != null)
+        {
+            missesText.text =
+                "Misses: " + misses + " / " + maximumMisses;
+        }
     }
 
     private void EndGame(bool playerWon)

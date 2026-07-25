@@ -1,15 +1,18 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class CatMinigameManager : MonoBehaviour
 {
     [SerializeField] private int foodNeededToWin = 15;
+    [SerializeField] private int maximumMisses = 3;
 
     [Header("UI")]
     [SerializeField] private TMP_Text foodText;
+    [SerializeField] private TMP_Text missesText;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Canvas Win_screen;
     private int foodCaught;
+    private int misses;
     private bool gameEnded;
 
     private void Start()
@@ -43,9 +46,15 @@ public class CatMinigameManager : MonoBehaviour
         if (gameEnded)
             return;
 
-        // Miss penalty removed: missing food no longer advances misses or ends the game.
-        // Game will continue until EndGame(true) is called when enough food is caught.
-        Debug.Log("Food missed - no penalty. Game continues.");
+        misses++;
+        UpdateUI();
+
+        Debug.Log("Misses: " + misses + " / " + maximumMisses);
+
+        if (misses >= maximumMisses)
+        {
+            EndGame(false);
+        }
     }
 
     private void UpdateUI()
@@ -56,7 +65,11 @@ public class CatMinigameManager : MonoBehaviour
                 "Food: " + foodCaught + " / " + foodNeededToWin;
         }
 
-        // Miss tracking removed: no misses UI to update
+        if (missesText != null)
+        {
+            missesText.text =
+                "Misses: " + misses + " / " + maximumMisses;
+        }
     }
 
     private void EndGame(bool playerWon)
