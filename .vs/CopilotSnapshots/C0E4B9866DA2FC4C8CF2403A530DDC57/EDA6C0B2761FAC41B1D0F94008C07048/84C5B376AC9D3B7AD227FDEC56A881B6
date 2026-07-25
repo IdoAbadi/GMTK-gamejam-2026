@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
 
@@ -60,11 +60,6 @@ public class Microwave_timer : MonoBehaviour
         {
             running = false;
             elapsed = durationSeconds;
-            // stop any currently playing periodic sounds before playing the end SFX
-            if (audioSource != null)
-            {
-                audioSource.Stop();
-            }
             if (endSfx != null) PlayOneShot(endSfx);
             OnTimerEnd();
         }
@@ -87,29 +82,20 @@ public class Microwave_timer : MonoBehaviour
             if (running) StopTimer(); else StartTimer();
         }
     }
+
     void PlayOneShot(AudioClip clip)
     {
         if (audioSource != null)
         {
-            // Route end-of-timer SFX to the beep mixer group, everything else to idle on group.
-            if (clip == endSfx && beepGroup != null)
-            {
-                audioSource.outputAudioMixerGroup = beepGroup;
-            }
-            else if (idleOnGroup != null)
-            {
-                audioSource.outputAudioMixerGroup = idleOnGroup;
-            }
-
-            // Play end SFX slightly louder (+5 dB). Use linear gain multiplier for PlayOneShot.
-            float volumeScale = 1f;
             if (clip == endSfx)
             {
-                // +5 dB => multiplier = 10^(dB/20)
-                volumeScale = Mathf.Pow(10f, 5f / 20f);
+                audioSource.PlayOneShot(clip);
             }
-
-            audioSource.PlayOneShot(clip, volumeScale);
+            else 
+            {
+                audioSource.PlayOneShot(clip);
+            }
+            
         }
     }
 
@@ -118,11 +104,6 @@ public class Microwave_timer : MonoBehaviour
     {
         elapsed = 0f;
         running = true;
-        // Play the periodic SFX once immediately when the timer starts, then schedule the next play
-        if (periodicIntervalSeconds > 0f && periodicSfx != null)
-        {
-            PlayOneShot(periodicSfx);
-        }
         nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
     }
 
