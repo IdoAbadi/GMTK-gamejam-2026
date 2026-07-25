@@ -7,6 +7,7 @@ TagManager:
   - prize
   - can
   - kill
+  - CatToy
   layers:
   - Default
   - TransparentFX
