@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee1e15e8c60b65448bf6d2e205cf98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingItem
-  fallSpeed: 4
+  fallSpeed: 5
   destroyY: -6
   winGravityScale: 2.5
   hitStrength: 2
