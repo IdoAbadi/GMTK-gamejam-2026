@@ -1,0 +1,897 @@
+fileFormatVersion: 2
+guid: 256d124632910764e80417b71fbca0c6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6640121746942854591
+    second: gus fed_0
+  - first:
+      213: -1921806962604126116
+    second: gus fed_1
+  - first:
+      213: -2658118622506141749
+    second: gus fed_2
+  - first:
+      213: -4190273786759288936
+    second: gus fed_3
+  - first:
+      213: 534858482634988847
+    second: gus fed_4
+  - first:
+      213: -8801413555922654967
+    second: gus fed_5
+  - first:
+      213: -2787029757453087502
+    second: gus fed_6
+  - first:
+      213: 1593867725313693022
+    second: gus fed_7
+  - first:
+      213: -2269178338871136366
+    second: gus fed_8
+  - first:
+      213: -258929014800108116
+    second: gus fed_9
+  - first:
+      213: -3472391296856192896
+    second: gus fed_10
+  - first:
+      213: 5840058086608376238
+    second: gus fed_11
+  - first:
+      213: 8412785901542435991
+    second: gus fed_12
+  - first:
+      213: 1083926682130776989
+    second: gus fed_13
+  - first:
+      213: -9141934195787783355
+    second: gus fed_14
+  - first:
+      213: -6774283137862918555
+    second: gus fed_15
+  - first:
+      213: 4923863785779456599
+    second: gus fed_16
+  - first:
+      213: 1252274589233377051
+    second: gus fed_17
+  - first:
+      213: 4149190990567620178
+    second: gus fed_18
+  - first:
+      213: -8025029447093185133
+    second: gus fed_19
+  - first:
+      213: -1926624354861570535
+    second: gus fed_20
+  - first:
+      213: 9148994915643619840
+    second: gus fed_21
+  - first:
+      213: 8545459927345251777
+    second: gus fed_22
+  - first:
+      213: -8085279349109269251
+    second: gus fed_23
+  - first:
+      213: 995537856356844844
+    second: gus fed_24
+  - first:
+      213: -4103934525928000957
+    second: gus fed_25
+  - first:
+      213: -1680755200768961140
+    second: gus fed_26
+  - first:
+      213: -7406491284928625373
+    second: gus fed_27
+  - first:
+      213: -6112214161152457588
+    second: gus fed_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gus fed_0
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 457
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14aff18b37c89d3a0800000000000000
+      internalID: -6640121746942854591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_1
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 421
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c50db1befbe5455e0800000000000000
+      internalID: -1921806962604126116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_2
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 386
+        width: 34
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc7bba632377c1bd0800000000000000
+      internalID: -2658118622506141749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_3
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 393
+        width: 33
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897e494213829d5c0800000000000000
+      internalID: -4190273786759288936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_4
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 369
+        width: 93
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2d1096c4f23c6700800000000000000
+      internalID: 534858482634988847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 317
+        width: 75
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9092ce5b0091bd580800000000000000
+      internalID: -8801413555922654967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_6
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 278
+        width: 68
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fcc090b33b7259d0800000000000000
+      internalID: -2787029757453087502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_7
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 277
+        width: 69
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e555842604e8e1610800000000000000
+      internalID: 1593867725313693022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_8
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 278
+        width: 65
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29f239bc2524280e0800000000000000
+      internalID: -2269178338871136366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_9
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 310
+        width: 27
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca53cc2de69186cf0800000000000000
+      internalID: -258929014800108116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_10
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 324
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0888ab553869fcfc0800000000000000
+      internalID: -3472391296856192896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_11
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 242
+        width: 34
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea190f743ed0c0150800000000000000
+      internalID: 5840058086608376238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_12
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 174
+        width: 61
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79ce9d0643830c470800000000000000
+      internalID: 8412785901542435991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_13
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 174
+        width: 63
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9309f21391ea0f00800000000000000
+      internalID: 1083926682130776989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_14
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 174
+        width: 69
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543a214f843512180800000000000000
+      internalID: -9141934195787783355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_15
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 242
+        width: 33
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56e13c7b069ecf1a0800000000000000
+      internalID: -6774283137862918555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_16
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 181
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a6bc18604155440800000000000000
+      internalID: 4923863785779456599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_17
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 201
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1fe084aa19f06110800000000000000
+      internalID: 1252274589233377051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 169
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25eb80af833e49930800000000000000
+      internalID: 4149190990567620178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_19
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 120
+        width: 39
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39516fd7c3e51a090800000000000000
+      internalID: -8025029447093185133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_20
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 77
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9162cd06b514345e0800000000000000
+      internalID: -1926624354861570535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_21
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 111
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00afacef662c7fe70800000000000000
+      internalID: 9148994915643619840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_22
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 97
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c5cfb33782979670800000000000000
+      internalID: 8545459927345251777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_23
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 100
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfc5a8605415bcf80800000000000000
+      internalID: -8085279349109269251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_24
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 2
+        width: 66
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c258a90e76cd0dd00800000000000000
+      internalID: 995537856356844844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_25
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 33
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 342b990da45eb07c0800000000000000
+      internalID: -4103934525928000957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_26
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 58
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8596c7cc02cca8e0800000000000000
+      internalID: -1680755200768961140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_27
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 15
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3258dc9ea6bd63990800000000000000
+      internalID: -7406491284928625373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gus fed_28
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 23
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c844565ba9d0d2ba0800000000000000
+      internalID: -6112214161152457588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      gus fed_0: -6640121746942854591
+      gus fed_1: -1921806962604126116
+      gus fed_10: -3472391296856192896
+      gus fed_11: 5840058086608376238
+      gus fed_12: 8412785901542435991
+      gus fed_13: 1083926682130776989
+      gus fed_14: -9141934195787783355
+      gus fed_15: -6774283137862918555
+      gus fed_16: 4923863785779456599
+      gus fed_17: 1252274589233377051
+      gus fed_18: 4149190990567620178
+      gus fed_19: -8025029447093185133
+      gus fed_2: -2658118622506141749
+      gus fed_20: -1926624354861570535
+      gus fed_21: 9148994915643619840
+      gus fed_22: 8545459927345251777
+      gus fed_23: -8085279349109269251
+      gus fed_24: 995537856356844844
+      gus fed_25: -4103934525928000957
+      gus fed_26: -1680755200768961140
+      gus fed_27: -7406491284928625373
+      gus fed_28: -6112214161152457588
+      gus fed_3: -4190273786759288936
+      gus fed_4: 534858482634988847
+      gus fed_5: -8801413555922654967
+      gus fed_6: -2787029757453087502
+      gus fed_7: 1593867725313693022
+      gus fed_8: -2269178338871136366
+      gus fed_9: -258929014800108116
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
