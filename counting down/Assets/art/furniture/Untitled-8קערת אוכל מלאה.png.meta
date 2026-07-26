@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: b73c192066d61334cbe751a019bb14cf
+guid: 27cde61c2b3c6164597957997e655dba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4684219240502290536
-    second: "Untitled-8\u05D7\u05E8\u05D3\u05DC_0"
+      213: -4633356733024503925
+    second: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_0"
   - first:
-      213: -1300133199850348948
-    second: "Untitled-8\u05D7\u05E8\u05D3\u05DC_1"
+      213: 4027526160324264675
+    second: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_1"
   - first:
-      213: -8298627028426926966
-    second: "Untitled-8\u05D7\u05E8\u05D3\u05DC_2"
+      213: -825677783619764536
+    second: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_2"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,13 +132,35 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Untitled-8\u05D7\u05E8\u05D3\u05DC_0"
+      name: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_0"
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 285
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b87f862999203bfb0800000000000000
+      internalID: -4633356733024503925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_1"
       rect:
         serializedVersion: 2
         x: 0
-        y: 250
-        width: 277
-        height: 364
+        y: 18
+        width: 286
+        height: 215
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8686038c490b10140800000000000000
-      internalID: 4684219240502290536
+      spriteID: 3e288bd34b5a4e730800000000000000
+      internalID: 4027526160324264675
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "Untitled-8\u05D7\u05E8\u05D3\u05DC_1"
+      name: "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_2"
       rect:
         serializedVersion: 2
-        x: 9
+        x: 56
         y: 0
-        width: 265
-        height: 606
+        width: 243
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,30 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c6e5a3e3ebff4fde0800000000000000
-      internalID: -1300133199850348948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Untitled-8\u05D7\u05E8\u05D3\u05DC_2"
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 63
-        width: 72
-        height: 424
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a8458278faa55dc80800000000000000
-      internalID: -8298627028426926966
+      spriteID: 8ce79603e6a9a84f0800000000000000
+      internalID: -825677783619764536
       vertices: []
       indices: 
       edges: []
@@ -211,9 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Untitled-8\u05D7\u05E8\u05D3\u05DC_0": 4684219240502290536
-      "Untitled-8\u05D7\u05E8\u05D3\u05DC_1": -1300133199850348948
-      "Untitled-8\u05D7\u05E8\u05D3\u05DC_2": -8298627028426926966
+      "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_0": -4633356733024503925
+      "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_1": 4027526160324264675
+      "Untitled-8\u05E7\u05E2\u05E8\u05EA \u05D0\u05D5\u05DB\u05DC \u05DE\u05DC\u05D0\u05D4_2": -825677783619764536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

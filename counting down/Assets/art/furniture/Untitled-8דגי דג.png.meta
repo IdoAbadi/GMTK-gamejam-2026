@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 18c19dc7e1d0da94faca4592308d1313
+guid: 23d99978b2a0c1a438f4edce091cf65a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5703977752783346614
-    second: Untitled-8green beans_0
+      213: 6289973325947905098
+    second: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_0"
+  - first:
+      213: 2299073207297722517
+    second: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_1"
+  - first:
+      213: -1942785508097159449
+    second: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_2"
+  - first:
+      213: 4658993994537684914
+    second: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_3"
+  - first:
+      213: -5699072940220244943
+    second: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_4"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled-8green beans_0
+      name: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 318
-        height: 401
+        width: 270
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +153,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a442e9e647667d0b0800000000000000
-      internalID: -5703977752783346614
+      spriteID: a44aecb0a697a4750800000000000000
+      internalID: 6289973325947905098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_1"
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 70
+        width: 128
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5984999a6e2f7ef10800000000000000
+      internalID: 2299073207297722517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_2"
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 37
+        width: 71
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ee871bafd6d905e0800000000000000
+      internalID: -1942785508097159449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_3"
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 36
+        width: 96
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bfc8178a5218a040800000000000000
+      internalID: 4658993994537684914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_4"
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 46
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c91291b53d8e0b0800000000000000
+      internalID: -5699072940220244943
       vertices: []
       indices: 
       edges: []
@@ -161,7 +261,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Untitled-8green beans_0: -5703977752783346614
+      "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_0": 6289973325947905098
+      "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_1": 2299073207297722517
+      "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_2": -1942785508097159449
+      "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_3": 4658993994537684914
+      "Untitled-8\u05D3\u05D2\u05D9 \u05D3\u05D2_4": -5699072940220244943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

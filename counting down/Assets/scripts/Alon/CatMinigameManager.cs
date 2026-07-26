@@ -9,7 +9,7 @@ public class CatMinigameManager : MonoBehaviour
     [SerializeField] private TMP_Text foodText;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Canvas Win_screen;
-    private int foodCaught;
+    public int foodCaught;
     private bool gameEnded;
 
     private void Start()

@@ -1,7 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
-using System.Collections;
 
 public class Microwave_timer : MonoBehaviour
 {
@@ -25,11 +24,6 @@ public class Microwave_timer : MonoBehaviour
     public AudioMixerGroup beepGroup;
     [Tooltip("Mixer group to use for all other SFX (idle on)")]
     public AudioMixerGroup idleOnGroup;
-    [Header("End Sequence")]
-    [Tooltip("Canvas to enable when the timer ends. Assign from the editor.")]
-    public Canvas loseScreenCanvas;
-
-    bool endSequenceStarted = false;
 
     public float timeRemaining;
     float elapsed;
@@ -46,10 +40,6 @@ public class Microwave_timer : MonoBehaviour
 
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
-
-        // Ensure lose screen is hidden at start if assigned
-        if (loseScreenCanvas != null)
-            loseScreenCanvas.gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -79,25 +69,7 @@ public class Microwave_timer : MonoBehaviour
             }
             if (endSfx != null) PlayOneShot(endSfx);
             OnTimerEnd();
-
-            // start end sequence: after 2 seconds, stop game time and enable lose screen
-            if (!endSequenceStarted)
-                StartCoroutine(EndSequenceCoroutine());
         }
-    }
-
-    IEnumerator EndSequenceCoroutine()
-    {
-        endSequenceStarted = true;
-        // wait 2 seconds in real time before pausing and showing lose UI
-        yield return new WaitForSecondsRealtime(2f);
-
-        // enable lose screen if assigned
-        if (loseScreenCanvas != null)
-            loseScreenCanvas.gameObject.SetActive(true);
-
-        // stop game time
-        Time.timeScale = 0f;
     }
 
     void Update()
