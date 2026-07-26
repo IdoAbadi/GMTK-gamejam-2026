@@ -8,6 +8,11 @@ public class scene_switch_interact : MonoBehaviour
     // Name of the scene to load. Set this in the Inspector.
     public string sceneName;
     public GameObject player;
+
+    // NEW: Reference to the timer to check if it's running
+    [Tooltip("Assign the active Microwave_timer here.")]
+    public Microwave_timer microwaveTimer;
+
     bool playerInRange = false;
     Keyboard kb;
 
@@ -27,14 +32,21 @@ public class scene_switch_interact : MonoBehaviour
 
         if (playerInRange && !string.IsNullOrEmpty(sceneName) && kb.eKey.wasPressedThisFrame)
         {
-            // Use the SceneSwitchManager to load the minigame additively
-            if (SceneSwitchManager.Instance != null)
+            // NEW: Only allow minigame entry if the timer is actively running
+            if (microwaveTimer != null && microwaveTimer.IsRunning())
             {
-                SceneSwitchManager.Instance.StartMinigame(sceneName);
+                if (SceneSwitchManager.Instance != null)
+                {
+                    SceneSwitchManager.Instance.StartMinigame(sceneName);
+                }
+                else
+                {
+                    Debug.LogError("SceneSwitchManager is missing from the main scene!");
+                }
             }
             else
             {
-                Debug.LogError("SceneSwitchManager is missing from the main scene!");
+                Debug.Log("Cannot enter minigame: The timer is not running.");
             }
         }
         else if (playerInRange && string.IsNullOrEmpty(sceneName) && kb.eKey.wasPressedThisFrame)

@@ -687,6 +687,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::controls
   canvasToDisable: {fileID: 0}
   canvasToEnable: {fileID: 0}
+  changeTimeScale: 0
+  timeScaleSetToOne: 1
+  controlAudio: 0
 --- !u!222 &8371581198875718655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -933,10 +936,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3430672171896177157}
   - {fileID: 6969888961124605025}
   - {fileID: 3006578221794790536}
   - {fileID: 6666622006774032597}
-  - {fileID: 3430672171896177157}
   - {fileID: 2525755985077039076}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

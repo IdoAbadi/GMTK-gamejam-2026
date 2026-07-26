@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9d995ad12324f2541bcc170e9f63b290
+guid: 8dac105436c4ac54eb0341e8b173b333
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3435037357105164701
-    second: micro no bowl_0
+      213: -6755109274554533307
+    second: you won full_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: micro no bowl_0
+      name: you won full_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 605
-        height: 459
+        width: 512
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36ecc8b29bb4450d0800000000000000
-      internalID: -3435037357105164701
+      spriteID: 54afa37a7e70142a0800000000000000
+      internalID: -6755109274554533307
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      micro no bowl_0: -3435037357105164701
+      you won full_0: -6755109274554533307
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

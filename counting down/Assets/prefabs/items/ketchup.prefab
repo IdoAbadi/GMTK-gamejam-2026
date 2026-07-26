@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29dbc1001bd1a439025c11ce9e75e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ketchup
+  WinCanvas: {fileID: 0}
 --- !u!70 &7055938227451442847
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

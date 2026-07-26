@@ -18,15 +18,17 @@ public class SceneSwitchManager : MonoBehaviour
     [SerializeField] private Vector2 minigameTimerOffset = new Vector2(-20f, -20f);
 
     private Dictionary<AudioSource, float> originalVolumes = new Dictionary<AudioSource, float>();
-    public string activeMinigameScene { get; private set; } // Exposed so other scripts can read it
+    public string activeMinigameScene { get; private set; }
 
-    // Variables to store the original layout of the timer
     private Vector2 originalTimerPosition;
     private Vector2 originalTimerAnchorMin;
     private Vector2 originalTimerAnchorMax;
     private Vector2 originalTimerPivot;
 
     public bool LastMinigameCompleted { get; private set; }
+
+    // NEW: Tracks the total amount of minigame wins
+    public int TotalWins { get; private set; } = 0;
 
     private void Awake()
     {
@@ -36,7 +38,6 @@ public class SceneSwitchManager : MonoBehaviour
 
     public void StartMinigame(string minigameSceneName)
     {
-        // Prevent loading a new scene if one is already running
         if (!string.IsNullOrEmpty(activeMinigameScene)) return;
 
         activeMinigameScene = minigameSceneName;
@@ -47,7 +48,6 @@ public class SceneSwitchManager : MonoBehaviour
     {
         originalVolumes.Clear();
 
-        // Lower the volume of all tracked main scene audio sources to 30%
         foreach (var audioSource in mainSceneAudioSources)
         {
             if (audioSource != null)
@@ -57,7 +57,6 @@ public class SceneSwitchManager : MonoBehaviour
             }
         }
 
-        // Move Timer to Top-Right
         if (timerRectTransform != null)
         {
             originalTimerPosition = timerRectTransform.anchoredPosition;
@@ -72,36 +71,35 @@ public class SceneSwitchManager : MonoBehaviour
             timerRectTransform.anchoredPosition = minigameTimerOffset;
         }
 
-        // Load Additively: The main scene stays active underneath
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-        // FIX: Set the newly loaded minigame as the active scene.
-        // This ensures all instantiated clones are created inside the minigame scene.
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
     }
 
     public void HandleMinigameWin(bool isCompleted)
     {
         LastMinigameCompleted = isCompleted;
+
+        // NEW: Increment total wins if the minigame was successfully completed
+        if (isCompleted)
+        {
+            TotalWins++;
+            Debug.Log($"Minigame Won! Total Wins: {TotalWins}");
+        }
+
         StartCoroutine(CloseMinigameRoutine());
     }
 
     private IEnumerator CloseMinigameRoutine()
     {
-        // Wait for 2 seconds while the win screen is visible
         yield return new WaitForSeconds(2f);
 
-        // Unload the minigame scene
         if (!string.IsNullOrEmpty(activeMinigameScene))
         {
-            // FIX: Set the main scene back to active before unloading the minigame
             SceneManager.SetActiveScene(gameObject.scene);
-
             yield return SceneManager.UnloadSceneAsync(activeMinigameScene);
             activeMinigameScene = null;
         }
 
-        // Restore main scene audio
         foreach (var kvp in originalVolumes)
         {
             if (kvp.Key != null)
@@ -110,7 +108,6 @@ public class SceneSwitchManager : MonoBehaviour
             }
         }
 
-        // Restore Timer to its exact original position
         if (timerRectTransform != null)
         {
             timerRectTransform.anchorMin = originalTimerAnchorMin;

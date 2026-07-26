@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
 using System.Collections;
@@ -15,37 +15,21 @@ public class Microwave_timer : MonoBehaviour
     [Tooltip("assign the player transform")]
     public Transform player;
 
-    [Tooltip("Amount of minigame wins required to manually stop the timer")]
-    public int requiredWinsToStop = 3;
-
     [Header("Audio")]
-    public AudioSource audioSource;
+    public AudioSource audioSource; // assign in editor
     public AudioClip endSfx;
     public AudioClip periodicSfx;
-    [Tooltip("Background looping clip that plays while the timer runs.")]
+    [Tooltip("Background looping clip that plays while the timer runs. Uses the same AudioSource as other SFX.")]
     public AudioClip backgroundLoopClip;
-    [Tooltip("Gain in dB to apply to the end SFX. +5 dB is default.")]
+    [Tooltip("Gain in dB to apply to the end SFX (can be negative). +5 dB is default.")]
     public float endSfxGainDb = 5f;
-    [Tooltip("Mixer group to use for end SFX")]
+    [Tooltip("Mixer group to use for end SFX (beep)")]
     public AudioMixerGroup beepGroup;
-    [Tooltip("Mixer group to use for all other SFX")]
+    [Tooltip("Mixer group to use for all other SFX (idle on)")]
     public AudioMixerGroup idleOnGroup;
-
-    [Header("End Sequences")]
-    [Tooltip("Canvas to enable when the timer runs out (Lose condition).")]
+    [Header("End Sequence")]
+    [Tooltip("Canvas to enable when the timer ends. Assign from the editor.")]
     public Canvas loseScreenCanvas;
-
-    [Tooltip("Canvas to enable when the timer is successfully stopped with <= 5 seconds remaining.")]
-    public Canvas winScreenCanvas;
-
-    // NEW: Canvas to enable when the timer is stopped too early
-    [Tooltip("Canvas to enable when the timer is stopped with > 5 seconds remaining.")]
-    public Canvas tooEarlyCanvas;
-
-    [Header("Visuals")]
-    public SpriteRenderer spriteRenderer;
-    public Sprite spriteOff;
-    public Sprite spriteOn;
 
     bool endSequenceStarted = false;
 
@@ -65,51 +49,45 @@ public class Microwave_timer : MonoBehaviour
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
 
+        // Make sure the shared AudioSource won't play on awake by default
         if (audioSource != null)
             audioSource.playOnAwake = false;
 
-        // Ensure all end sequence canvases are hidden on start
+        // Ensure lose screen is hidden at start if assigned
         if (loseScreenCanvas != null)
             loseScreenCanvas.gameObject.SetActive(false);
-
-        if (winScreenCanvas != null)
-            winScreenCanvas.gameObject.SetActive(false);
-
-        // NEW: Hide too early canvas on start
-        if (tooEarlyCanvas != null)
-            tooEarlyCanvas.gameObject.SetActive(false);
-
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && spriteOff != null)
-            spriteRenderer.sprite = spriteOff;
     }
 
     void FixedUpdate()
     {
         if (!running) return;
 
+        // advance timer with fixed delta
         elapsed += Time.fixedDeltaTime;
         timeRemaining -= Time.fixedDeltaTime;
 
+        // periodic SFX
         if (periodicIntervalSeconds > 0f && periodicSfx != null && elapsed >= nextPeriodicTrigger)
         {
             PlayOneShot(periodicSfx);
+            // schedule next
             nextPeriodicTrigger += periodicIntervalSeconds;
         }
-
+        // end of timer
         if (elapsed >= durationSeconds)
         {
             running = false;
             elapsed = durationSeconds;
-
+            // stop any currently playing periodic sounds before playing the end SFX
             if (audioSource != null)
             {
                 audioSource.Stop();
             }
+            // stopping audioSource above will also stop the background loop if it was playing
             if (endSfx != null) PlayOneShot(endSfx);
             OnTimerEnd();
 
+            // start end sequence: after 2 seconds, stop game time and enable lose screen
             if (!endSequenceStarted)
                 StartCoroutine(EndSequenceCoroutine());
         }
@@ -118,16 +96,20 @@ public class Microwave_timer : MonoBehaviour
     IEnumerator EndSequenceCoroutine()
     {
         endSequenceStarted = true;
+        // wait 2 seconds in real time before pausing and showing lose UI
         yield return new WaitForSecondsRealtime(2f);
 
+        // enable lose screen if assigned
         if (loseScreenCanvas != null)
             loseScreenCanvas.gameObject.SetActive(true);
 
+        // stop game time
         Time.timeScale = 0f;
     }
 
     void Update()
     {
+        // check player proximity
         playerInRange = false;
         if (player != null)
         {
@@ -135,52 +117,18 @@ public class Microwave_timer : MonoBehaviour
             playerInRange = d <= activationRadius;
         }
 
+        // toggle with E (Input System only)
         var kb = Keyboard.current;
         if (playerInRange && kb.eKey.wasPressedThisFrame)
         {
-            if (running)
-            {
-                int currentWins = SceneSwitchManager.Instance != null ? SceneSwitchManager.Instance.TotalWins : 0;
-                if (currentWins >= requiredWinsToStop)
-                {
-                    StopTimer();
-
-                    if (TimeRemaining() <= 5f)
-                    {
-                        Debug.Log($"Win condition met! Timer stopped with {TimeRemaining():F2} seconds remaining.");
-
-                        if (winScreenCanvas != null)
-                            winScreenCanvas.gameObject.SetActive(true);
-
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        // NEW: Show the too early canvas if stopped with more than 5 seconds left
-                        Debug.Log($"Timer stopped too early! {TimeRemaining():F2} seconds remained.");
-
-                        if (tooEarlyCanvas != null)
-                            tooEarlyCanvas.gameObject.SetActive(true);
-
-                        Time.timeScale = 0f;
-                    }
-                }
-                else
-                {
-                    Debug.Log($"Cannot stop timer yet! You need {requiredWinsToStop} wins, but only have {currentWins}.");
-                }
-            }
-            else
-            {
-                StartTimer();
-            }
+            if (running) StopTimer(); else StartTimer();
         }
     }
-
     void PlayOneShot(AudioClip clip)
     {
         if (audioSource != null)
         {
+            // Route end-of-timer SFX to the beep mixer group, everything else to idle on group.
             if (clip == endSfx && beepGroup != null)
             {
                 audioSource.outputAudioMixerGroup = beepGroup;
@@ -190,9 +138,11 @@ public class Microwave_timer : MonoBehaviour
                 audioSource.outputAudioMixerGroup = idleOnGroup;
             }
 
+            // Compute linear gain multiplier from dB setting for end SFX
             float volumeScale = 1f;
             if (clip == endSfx)
             {
+                // dB -> linear multiplier: 10^(dB/20)
                 volumeScale = Mathf.Pow(10f, endSfxGainDb / 20f);
             }
 
@@ -200,14 +150,18 @@ public class Microwave_timer : MonoBehaviour
         }
     }
 
+    // API
     public void StartTimer()
     {
         elapsed = 0f;
         running = true;
-
-        if (spriteRenderer != null && spriteOn != null)
-            spriteRenderer.sprite = spriteOn;
-
+        // Play the periodic SFX once immediately when the timer starts, then schedule the next play
+        if (periodicIntervalSeconds > 0f && periodicSfx != null)
+        {
+            PlayOneShot(periodicSfx);
+        }
+        nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
+        // start background looping audio if assigned, using the shared audioSource
         if (backgroundLoopClip != null && audioSource != null)
         {
             if (audioSource.clip != backgroundLoopClip)
@@ -215,22 +169,15 @@ public class Microwave_timer : MonoBehaviour
             if (idleOnGroup != null)
                 audioSource.outputAudioMixerGroup = idleOnGroup;
             audioSource.loop = true;
-            audioSource.Play();
+            if (!audioSource.isPlaying)
+                audioSource.Play();
         }
-
-        if (periodicIntervalSeconds > 0f && periodicSfx != null)
-        {
-            PlayOneShot(periodicSfx);
-        }
-        nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
     }
 
     public void StopTimer()
     {
         running = false;
-        if (spriteRenderer != null && spriteOff != null)
-            spriteRenderer.sprite = spriteOff;
-
+        // stop background loop immediately (shared audioSource)
         if (audioSource != null && audioSource.isPlaying && audioSource.clip == backgroundLoopClip)
         {
             audioSource.Stop();
@@ -238,11 +185,15 @@ public class Microwave_timer : MonoBehaviour
         }
     }
 
+    // removed ResetTimer per request. Timer can be started/stopped via StartTimer/StopTimer and toggled by E when player is close.
+
     public float TimeRemaining() => Mathf.Max(0f, durationSeconds - elapsed);
     public float TimeElapsed() => elapsed;
     public bool IsRunning() => running;
 
+    // hook for additional behavior
     protected virtual void OnTimerEnd()
     {
+        // override or subscribe to further behavior in derived scripts
     }
 }

@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class load_Scene : MonoBehaviour
+{
+    [Tooltip("Name of the scene to load")]
+    public string sceneName;
+
+    // Call this method from a UI Button OnClick in the Inspector.
+    public void LoadScene()
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogWarning("load_Scene: sceneName is empty. Set it in the Inspector.");
+            return;
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+}

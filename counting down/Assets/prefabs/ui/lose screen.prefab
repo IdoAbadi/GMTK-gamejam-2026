@@ -168,10 +168,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2203576043077788069}
   - {fileID: 5474370551989166894}
   - {fileID: 8901788336937833065}
   - {fileID: 1900652033866657778}
-  - {fileID: 2203576043077788069}
   - {fileID: 5389609525563306619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1051,6 +1051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::controls
   canvasToDisable: {fileID: 0}
   canvasToEnable: {fileID: 0}
+  changeTimeScale: 0
+  timeScaleSetToOne: 1
 --- !u!222 &2112244262164110702
 CanvasRenderer:
   m_ObjectHideFlags: 0
