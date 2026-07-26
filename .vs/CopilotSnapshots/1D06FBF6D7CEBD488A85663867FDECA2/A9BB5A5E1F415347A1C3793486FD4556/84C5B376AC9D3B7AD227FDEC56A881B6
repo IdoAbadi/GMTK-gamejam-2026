@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
 using System.Collections;
@@ -19,8 +19,6 @@ public class Microwave_timer : MonoBehaviour
     public AudioSource audioSource; // assign in editor
     public AudioClip endSfx;
     public AudioClip periodicSfx;
-    [Tooltip("Background looping clip that plays while the timer runs. Uses the same AudioSource as other SFX.")]
-    public AudioClip backgroundLoopClip;
     [Tooltip("Gain in dB to apply to the end SFX (can be negative). +5 dB is default.")]
     public float endSfxGainDb = 5f;
     [Tooltip("Mixer group to use for end SFX (beep)")]
@@ -48,10 +46,6 @@ public class Microwave_timer : MonoBehaviour
 
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
-
-        // Make sure the shared AudioSource won't play on awake by default
-        if (audioSource != null)
-            audioSource.playOnAwake = false;
 
         // Ensure lose screen is hidden at start if assigned
         if (loseScreenCanvas != null)
@@ -83,7 +77,6 @@ public class Microwave_timer : MonoBehaviour
             {
                 audioSource.Stop();
             }
-            // stopping audioSource above will also stop the background loop if it was playing
             if (endSfx != null) PlayOneShot(endSfx);
             OnTimerEnd();
 
@@ -161,28 +154,11 @@ public class Microwave_timer : MonoBehaviour
             PlayOneShot(periodicSfx);
         }
         nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
-        // start background looping audio if assigned, using the shared audioSource
-        if (backgroundLoopClip != null && audioSource != null)
-        {
-            if (audioSource.clip != backgroundLoopClip)
-                audioSource.clip = backgroundLoopClip;
-            if (idleOnGroup != null)
-                audioSource.outputAudioMixerGroup = idleOnGroup;
-            audioSource.loop = true;
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-        }
     }
 
     public void StopTimer()
     {
         running = false;
-        // stop background loop immediately (shared audioSource)
-        if (audioSource != null && audioSource.isPlaying && audioSource.clip == backgroundLoopClip)
-        {
-            audioSource.Stop();
-            audioSource.loop = false;
-        }
     }
 
     // removed ResetTimer per request. Timer can be started/stopped via StartTimer/StopTimer and toggled by E when player is close.

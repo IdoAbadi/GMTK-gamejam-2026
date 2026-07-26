@@ -2,12 +2,21 @@ using UnityEngine;
 
 public class MinigameWinTrigger : MonoBehaviour
 {
+    private bool isFirstEnable = true;
+
     private void OnEnable()
     {
-        // When this Canvas is enabled, tell the Manager in the main scene
+        // Ignore the first setup frame when the scene loads
+        if (isFirstEnable)
+        {
+            isFirstEnable = false;
+            return;
+        }
+
         if (SceneSwitchManager.Instance != null)
         {
-            SceneSwitchManager.Instance.HandleMinigameWin();
+            // Pass 'true' to let the manager know the win condition was met
+            SceneSwitchManager.Instance.HandleMinigameWin(true);
         }
         else
         {

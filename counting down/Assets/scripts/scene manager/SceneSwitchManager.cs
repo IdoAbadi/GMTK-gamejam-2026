@@ -11,18 +11,30 @@ public class SceneSwitchManager : MonoBehaviour
     [Tooltip("Drag the main scene's background AudioSources here.")]
     [SerializeField] private List<AudioSource> mainSceneAudioSources;
 
-    // We store the original volumes so we can accurately restore them later
+    [Header("Main Scene UI")]
+    [Tooltip("Drag the Timer's RectTransform here.")]
+    [SerializeField] private RectTransform timerRectTransform;
+    [Tooltip("Padding from the top-right corner during a minigame.")]
+    [SerializeField] private Vector2 minigameTimerOffset = new Vector2(-20f, -20f);
+
     private Dictionary<AudioSource, float> originalVolumes = new Dictionary<AudioSource, float>();
     private string activeMinigameScene;
 
+    // Variables to store the original layout of the timer
+    private Vector2 originalTimerPosition;
+    private Vector2 originalTimerAnchorMin;
+    private Vector2 originalTimerAnchorMax;
+    private Vector2 originalTimerPivot;
+
+    // Add this line to store the completion status so other scripts can read it
+    public bool LastMinigameCompleted { get; private set; }
+
     private void Awake()
     {
-        // Simple Singleton pattern
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); }
     }
 
-    // Call this method (e.g., from a button) to load your minigame
     public void StartMinigame(string minigameSceneName)
     {
         activeMinigameScene = minigameSceneName;
@@ -43,13 +55,28 @@ public class SceneSwitchManager : MonoBehaviour
             }
         }
 
+        // Move Timer to Top-Right
+        if (timerRectTransform != null)
+        {
+            originalTimerPosition = timerRectTransform.anchoredPosition;
+            originalTimerAnchorMin = timerRectTransform.anchorMin;
+            originalTimerAnchorMax = timerRectTransform.anchorMax;
+            originalTimerPivot = timerRectTransform.pivot;
+
+            timerRectTransform.anchorMin = new Vector2(1, 1);
+            timerRectTransform.anchorMax = new Vector2(1, 1);
+            timerRectTransform.pivot = new Vector2(1, 1);
+
+            timerRectTransform.anchoredPosition = minigameTimerOffset;
+        }
+
         // Load Additively: The main scene stays active underneath
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 
-    // This will be called by the Win Screen when it enables
-    public void HandleMinigameWin()
+    public void HandleMinigameWin(bool isCompleted)
     {
+        LastMinigameCompleted = isCompleted;
         StartCoroutine(CloseMinigameRoutine());
     }
 
@@ -65,13 +92,22 @@ public class SceneSwitchManager : MonoBehaviour
             activeMinigameScene = null;
         }
 
-        // Restore main scene audio to exactly what it was
+        // Restore main scene audio
         foreach (var kvp in originalVolumes)
         {
             if (kvp.Key != null)
             {
                 kvp.Key.volume = kvp.Value;
             }
+        }
+
+        // Restore Timer to its exact original position
+        if (timerRectTransform != null)
+        {
+            timerRectTransform.anchorMin = originalTimerAnchorMin;
+            timerRectTransform.anchorMax = originalTimerAnchorMax;
+            timerRectTransform.pivot = originalTimerPivot;
+            timerRectTransform.anchoredPosition = originalTimerPosition;
         }
     }
 }

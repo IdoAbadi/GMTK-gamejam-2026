@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
 using System.Collections;
@@ -83,7 +83,11 @@ public class Microwave_timer : MonoBehaviour
             {
                 audioSource.Stop();
             }
-            // stopping audioSource above will also stop the background loop if it was playing
+            // stop looping background immediately
+            if (loopAudioSource != null && loopAudioSource.isPlaying)
+            {
+                loopAudioSource.Stop();
+            }
             if (endSfx != null) PlayOneShot(endSfx);
             OnTimerEnd();
 
@@ -161,28 +165,24 @@ public class Microwave_timer : MonoBehaviour
             PlayOneShot(periodicSfx);
         }
         nextPeriodicTrigger = periodicIntervalSeconds > 0f ? periodicIntervalSeconds : float.PositiveInfinity;
-        // start background looping audio if assigned, using the shared audioSource
-        if (backgroundLoopClip != null && audioSource != null)
+        // start background looping audio if assigned
+        if (backgroundLoopClip != null && loopAudioSource != null)
         {
-            if (audioSource.clip != backgroundLoopClip)
-                audioSource.clip = backgroundLoopClip;
+            if (loopAudioSource.clip != backgroundLoopClip)
+                loopAudioSource.clip = backgroundLoopClip;
             if (idleOnGroup != null)
-                audioSource.outputAudioMixerGroup = idleOnGroup;
-            audioSource.loop = true;
-            if (!audioSource.isPlaying)
-                audioSource.Play();
+                loopAudioSource.outputAudioMixerGroup = idleOnGroup;
+            if (!loopAudioSource.isPlaying)
+                loopAudioSource.Play();
         }
     }
 
     public void StopTimer()
     {
         running = false;
-        // stop background loop immediately (shared audioSource)
-        if (audioSource != null && audioSource.isPlaying && audioSource.clip == backgroundLoopClip)
-        {
-            audioSource.Stop();
-            audioSource.loop = false;
-        }
+        // stop background loop immediately
+        if (loopAudioSource != null && loopAudioSource.isPlaying)
+            loopAudioSource.Stop();
     }
 
     // removed ResetTimer per request. Timer can be started/stopped via StartTimer/StopTimer and toggled by E when player is close.

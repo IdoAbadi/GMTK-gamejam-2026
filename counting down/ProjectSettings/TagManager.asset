@@ -9,6 +9,7 @@ TagManager:
   - kill
   - CatToy
   - win screen
+  - Kid
   layers:
   - Default
   - TransparentFX
