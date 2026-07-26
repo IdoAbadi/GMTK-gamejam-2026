@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class feeding_winscreen : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (SceneSwitchManager.Instance != null)
+        {
+            // Pass 'true' to let the manager know the win condition was met
+            SceneSwitchManager.Instance.HandleMinigameWin(true);
+        }
+        else
+        {
+            Debug.LogWarning("SceneSwitchManager not found. Are you running the minigame directly?");
+        }
     }
 }
