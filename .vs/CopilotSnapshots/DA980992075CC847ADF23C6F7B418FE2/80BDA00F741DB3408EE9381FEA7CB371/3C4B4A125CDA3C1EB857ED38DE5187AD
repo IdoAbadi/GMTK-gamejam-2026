@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +18,7 @@ public class SceneSwitchManager : MonoBehaviour
     [SerializeField] private Vector2 minigameTimerOffset = new Vector2(-20f, -20f);
 
     private Dictionary<AudioSource, float> originalVolumes = new Dictionary<AudioSource, float>();
-    public string activeMinigameScene { get; private set; } // Exposed so other scripts can read it
+    private string activeMinigameScene;
 
     // Variables to store the original layout of the timer
     private Vector2 originalTimerPosition;
@@ -26,6 +26,7 @@ public class SceneSwitchManager : MonoBehaviour
     private Vector2 originalTimerAnchorMax;
     private Vector2 originalTimerPivot;
 
+    // Add this line to store the completion status so other scripts can read it
     public bool LastMinigameCompleted { get; private set; }
 
     private void Awake()
@@ -36,9 +37,6 @@ public class SceneSwitchManager : MonoBehaviour
 
     public void StartMinigame(string minigameSceneName)
     {
-        // Prevent loading a new scene if one is already running
-        if (!string.IsNullOrEmpty(activeMinigameScene)) return;
-
         activeMinigameScene = minigameSceneName;
         StartCoroutine(LoadMinigameRoutine(minigameSceneName));
     }
@@ -74,10 +72,6 @@ public class SceneSwitchManager : MonoBehaviour
 
         // Load Additively: The main scene stays active underneath
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-        // FIX: Set the newly loaded minigame as the active scene.
-        // This ensures all instantiated clones are created inside the minigame scene.
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
     }
 
     public void HandleMinigameWin(bool isCompleted)
@@ -94,9 +88,6 @@ public class SceneSwitchManager : MonoBehaviour
         // Unload the minigame scene
         if (!string.IsNullOrEmpty(activeMinigameScene))
         {
-            // FIX: Set the main scene back to active before unloading the minigame
-            SceneManager.SetActiveScene(gameObject.scene);
-
             yield return SceneManager.UnloadSceneAsync(activeMinigameScene);
             activeMinigameScene = null;
         }
