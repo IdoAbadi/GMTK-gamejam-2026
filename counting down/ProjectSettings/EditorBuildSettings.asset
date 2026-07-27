@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main scene.unity
     guid: 02570b4db989d56438dbb236d3d60b97
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/under_the_sofa_mini_game.unity
     guid: 5ddc4523b3b3f55458d6642992a8a0f2
   m_configObjects:
